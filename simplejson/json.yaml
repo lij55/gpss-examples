@@ -7,7 +7,7 @@ KAFKA:
    INPUT:
       SOURCE:
         BROKERS: kafkahost:9092
-        TOPIC: testjson
+        TOPIC: simplejson
       VALUE:
         COLUMNS:
           - NAME: c1
@@ -15,6 +15,9 @@ KAFKA:
         FORMAT: json
       ERROR_LIMIT: 0
    OUTPUT:
-      TABLE: testjson
+      TABLE: simplejson
+      MAPPING:
+          - NAME: data
+            EXPRESSION: c1
    COMMIT:
       MINIMAL_INTERVAL: 2000
