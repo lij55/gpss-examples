@@ -1,0 +1,20 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+KAFKA:
+   INPUT:
+      SOURCE:
+        BROKERS: kafkahost:9092
+        TOPIC: testjson
+      VALUE:
+        COLUMNS:
+          - NAME: c1
+            TYPE: json
+        FORMAT: json
+      ERROR_LIMIT: 0
+   OUTPUT:
+      TABLE: testjson
+   COMMIT:
+      MINIMAL_INTERVAL: 2000
