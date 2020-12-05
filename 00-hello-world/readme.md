@@ -12,5 +12,5 @@ create table simplejson(data json);
 
 # load with gpkafka
 ```bash
-gpsscli load -s json.yaml
+gpsscli load --quit-at-eof json.yaml
 ```
