@@ -1,0 +1,39 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+KAFKA:
+   INPUT:
+     SOURCE:
+        BROKERS: kafkahost
+        TOPIC: key_value_meta
+     VALUE:
+         COLUMNS:
+           - NAME: c1
+             TYPE: json
+         FORMAT: json
+     KEY:
+         COLUMNS:
+           - NAME: c2
+             TYPE: varchar(8)
+         FORMAT: csv
+     META:
+         COLUMNS:
+           - NAME: meta
+             TYPE: json
+         FORMAT: json
+     ERROR_LIMIT: 10
+   OUTPUT:
+      TABLE: demo_meta
+      MAPPING:
+              - NAME: value
+                EXPRESSION: c1
+              - NAME: key
+                EXPRESSION: c2
+              - NAME: meta
+                EXPRESSION: meta
+              - NAME: time
+                EXPRESSION: (data->>'time')::timestamp
+   COMMIT:
+      MINIMAL_INTERVAL: 1000
