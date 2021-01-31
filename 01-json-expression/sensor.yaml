@@ -2,26 +2,27 @@ DATABASE: test
 USER: gpadmin
 HOST: mdw
 PORT: 5432
+VERSION: 2
 KAFKA:
    INPUT:
-     SOURCE:
+      SOURCE:
         BROKERS: kafkahost
         TOPIC: sensor
-     COLUMNS:
-           - NAME: data
-             TYPE: json
-     FORMAT: json
-     ERROR_LIMIT: 10
+      VALUE:
+        COLUMNS:
+          - NAME: data
+            TYPE: json
+        FORMAT: json
    OUTPUT:
       TABLE: vehicles_sensor_data
       MAPPING:
-              - NAME: device
-                EXPRESSION: data->>'device'
-              - NAME: humidity
-                EXPRESSION: (data->>'humidity')::float
-              - NAME: temperature
-                EXPRESSION: (data->>'temperature')::float
-              - NAME: time
-                EXPRESSION: (data->>'time')::timestamp
+          - NAME: device
+            EXPRESSION: data->>'device'
+          - NAME: humidity
+            EXPRESSION: (data->>'humidity')::float
+          - NAME: temperature
+            EXPRESSION: (data->>'temperature')::float
+          - NAME: time
+            EXPRESSION: (data->>'time')::timestamp
    COMMIT:
-      MINIMAL_INTERVAL: 1000
+      MINIMAL_INTERVAL: 2000

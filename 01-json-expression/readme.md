@@ -1,12 +1,18 @@
-# generate message for kafka
+# Introduction
+This example is to extract json field for each column.
+
+
+# Produce sample json message
 ```bash
 cat sensor_10.json |kafkacat -P -b kafkahost -t sensor
 ```
 
-# create target table
+# Prepare target table
 ```bash
 psql -f ddl.sql
 ```
 
-# load with gpkafka
-gpkafka load --quit-at-eof sensor.yaml
+# Load with gpkafka
+```bash
+gpsscli load --quit-at-eof -s json.yaml
+```

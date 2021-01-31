@@ -13,7 +13,6 @@ KAFKA:
           - NAME: c1
             TYPE: json
         FORMAT: json
-      ERROR_LIMIT: 0
    OUTPUT:
       TABLE: simplejson
       MAPPING:

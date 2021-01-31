@@ -7,7 +7,7 @@ KAFKA:
    INPUT:
      SOURCE:
         BROKERS: kafkahost
-        TOPIC: key_value_meta
+        TOPIC: key-value-meta
      VALUE:
          COLUMNS:
            - NAME: c1
@@ -17,13 +17,14 @@ KAFKA:
          COLUMNS:
            - NAME: c2
              TYPE: varchar(8)
-         FORMAT: csv
+         FORMAT: delimited
+         DELIMITED_OPTION:
+          DELIMITER: '||'
      META:
          COLUMNS:
            - NAME: meta
              TYPE: json
          FORMAT: json
-     ERROR_LIMIT: 10
    OUTPUT:
       TABLE: demo_meta
       MAPPING:
@@ -34,6 +35,6 @@ KAFKA:
               - NAME: meta
                 EXPRESSION: meta
               - NAME: time
-                EXPRESSION: (data->>'time')::timestamp
+                EXPRESSION: (c1->>'time')::timestamp
    COMMIT:
       MINIMAL_INTERVAL: 1000
