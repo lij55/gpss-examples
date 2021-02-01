@@ -6,7 +6,7 @@ VERSION: 2
 FILE:
    INPUT:
      SOURCE:
-        URL: images/*
+        URL: file:///home/gpadmin/gpss-examples/04-binary-file/images/*
      VALUE:
          COLUMNS:
            - NAME: c1
