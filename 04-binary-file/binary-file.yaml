@@ -1,0 +1,21 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+FILE:
+   INPUT:
+     SOURCE:
+        URL: images/*
+     VALUE:
+         COLUMNS:
+           - NAME: c1
+             TYPE: bytea
+         FORMAT: binary
+   OUTPUT:
+      TABLE: binary_files
+      MAPPING:
+              - NAME: len
+                EXPRESSION: length(c1)
+              - NAME: content
+                EXPRESSION: c1

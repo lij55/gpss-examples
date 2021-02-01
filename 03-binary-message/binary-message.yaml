@@ -1,0 +1,24 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+KAFKA:
+   INPUT:
+     SOURCE:
+        BROKERS: kafkahost
+        TOPIC: binary-message
+     VALUE:
+         COLUMNS:
+           - NAME: c1
+             TYPE: bytea
+         FORMAT: binary
+   OUTPUT:
+      TABLE: binary_message
+      MAPPING:
+              - NAME: len
+                EXPRESSION: length(c1)
+              - NAME: content
+                EXPRESSION: c1
+   COMMIT:
+      MINIMAL_INTERVAL: 2000
