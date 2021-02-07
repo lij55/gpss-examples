@@ -1,0 +1,44 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+FILE:
+    INPUT:
+        SOURCE:
+            URL: file:///home/gpadmin/gpss-examples/06-merge/data.txt
+        VALUE:
+            COLUMNS:
+                - NAME: n_col1
+                  TYPE: int
+                - NAME: n_col2
+                  TYPE: int
+                - NAME: n_col3
+                  TYPE: int
+                - NAME: n_col4
+                  TYPE: int
+                - NAME: n_col5
+                  TYPE: text
+                - NAME: n_col6
+                  TYPE: text
+            FORMAT: delimited
+            DELIMITED_OPTION:
+                DELIMITER: '|'
+    OUTPUT:
+        TABLE: merge_test
+        MODE: merge
+        MATCH_COLUMNS: 
+            - col1
+            - col2
+        UPDATE_CONDITION: col3 = 0
+        DELETE_CONDITION: col3 = 1
+        UPDATE_COLUMNS:
+            - col4
+            - col5
+        MAPPING:
+            col1: n_col1
+            col2: n_col2
+            col3: n_col3
+            col4: n_col4
+            col5: n_col5
+            col6: n_col6

@@ -1,0 +1,7 @@
+1|1|0|100|"get updated"|"never updated"
+1|1|1|100|"not updated"|"never updated"
+1|2|3|100|"new value"|"new value"
+2|2|1|100|"valeu"|"deleted"
+3|3|0|100|"new value"|"new value"
+4|7|3|100|"get updated"|"never updated"
+6|7|3|100|"new value"|"new value"
