@@ -1,0 +1,23 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+KAFKA:
+   INPUT:
+      SOURCE:
+        BROKERS: kafkahost:9092
+        TOPIC: simplejson
+        PARTITIONS: (2, 5...7, 10)
+      VALUE:
+        COLUMNS:
+          - NAME: c1
+            TYPE: json
+        FORMAT: json
+   OUTPUT:
+      TABLE: simplejson
+      MAPPING:
+          - NAME: data
+            EXPRESSION: c1
+   COMMIT:
+      MINIMAL_INTERVAL: 2000

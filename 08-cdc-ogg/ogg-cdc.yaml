@@ -1,0 +1,44 @@
+
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+KAFKA:
+   INPUT:
+      SOURCE:
+        BROKERS: kafkahost
+        TOPIC: ogg-cdc
+      VALUE:
+        COLUMNS:
+          - NAME: c1
+            TYPE: json
+        FORMAT: json
+   OUTPUT:
+      MODE: MERGE
+      MATCH_COLUMNS:
+        - id
+      UPDATE_COLUMNS:
+        - name
+        - birthday
+      ORDER_COLUMNS:
+        - ts
+      DELETE_CONDITION: c1->>'op_type' = 'D'
+      TABLE: ogg_cdc
+      MAPPING:
+         - NAME: id
+           EXPRESSION: |
+              CASE WHEN ((c1->'after')::json is not null) THEN (c1->'after'->>'ID')::integer
+              ELSE (c1->'before'->>'ID')::integer end
+         - NAME: name
+           EXPRESSION: |
+              CASE WHEN ((c1->'after')::json is not null) THEN (c1->'after'->>'NAME')::text
+              ELSE null end
+         - NAME: birthday
+           EXPRESSION: |
+              CASE WHEN ((c1->'after')::json is not null) THEN (c1->'after'->>'BIRTHDAY')::date
+              ELSE null end
+         - NAME: ts
+           EXPRESSION: (c1->>'current_ts')::timestamp
+   COMMIT:
+      MINIMAL_INTERVAL: 2000

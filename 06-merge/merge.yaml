@@ -30,8 +30,8 @@ FILE:
         MATCH_COLUMNS: 
             - col1
             - col2
-        UPDATE_CONDITION: col3 = 0
-        DELETE_CONDITION: col3 = 1
+        UPDATE_CONDITION: into_table.col3 = 0
+        DELETE_CONDITION: ext.col3 = 1
         UPDATE_COLUMNS:
             - col4
             - col5
