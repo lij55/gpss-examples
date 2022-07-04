@@ -1,0 +1,38 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+KAFKA:
+   INPUT:
+      SOURCE:
+        BROKERS: kafkahost:9092
+        TOPIC: enhancedeli
+      VALUE:
+        COLUMNS:
+          - NAME: c1
+            TYPE: text
+          - NAME: c2
+            TYPE: text
+          - NAME: c3
+            TYPE: text
+          - NAME: c4
+            TYPE: text
+        FORMAT: delimited
+        DELIMITED_OPTION:
+           DELIMITER: '<>'
+           EOL_PREFIX: '|'
+      ERROR_LIMIT: 10
+   OUTPUT:
+      TABLE: enhancedeli
+      MAPPING:
+          - NAME: d1
+            EXPRESSION: c1
+          - NAME: d2
+            EXPRESSION: c2
+          - NAME: d3
+            EXPRESSION: c3
+          - NAME: d4
+            EXPRESSION: c4
+   COMMIT:
+      MINIMAL_INTERVAL: 2000

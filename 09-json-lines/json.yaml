@@ -7,13 +7,12 @@ KAFKA:
    INPUT:
       SOURCE:
         BROKERS: kafkahost:9092
-        TOPIC: backblaze_smart
-        FALLBACK_OFFSET: earliest
+        TOPIC: mdjson
       VALUE:
         COLUMNS:
           - NAME: c1
             TYPE: json
-        FORMAT: json
+        FORMAT: jsonl
    OUTPUT:
       TABLE: simplejson
       MAPPING:

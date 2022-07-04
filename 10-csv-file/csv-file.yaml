@@ -6,14 +6,14 @@ VERSION: 2
 FILE:
    INPUT:
      SOURCE:
-        URL: file://04-binary-file/images/*
+        URL: file://10-csv-file/bigcsv.csv
      VALUE:
          COLUMNS:
            - NAME: c1
              TYPE: bytea
-         FORMAT: binary
+         FORMAT: csv
    OUTPUT:
-      TABLE: binary_files
+      TABLE: test_csv_file
       MAPPING:
               - NAME: len
                 EXPRESSION: length(c1)

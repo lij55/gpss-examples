@@ -1,0 +1,21 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+FILE:
+   INPUT:
+     SOURCE:
+        URL: file://12-xml-file/data/*
+     VALUE:
+         COLUMNS:
+           - NAME: data
+             TYPE: bytea
+         FORMAT: binary
+   OUTPUT:
+      TABLE: testxml
+      MAPPING:
+              - NAME: c1
+                EXPRESSION: encode(data, 'escape')::xml
+              - NAME: id
+                EXPRESSION: xpath('/n:Return/n:ReturnHeader/n:ReturnId/text()', encode(data, 'escape')::xml,'{{n, http://www.irs.gov/efile}}')

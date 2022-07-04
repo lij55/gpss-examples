@@ -1,0 +1,30 @@
+DATABASE: test
+USER: gpadmin
+HOST: mdw
+PORT: 5432
+VERSION: 2
+KAFKA:
+   INPUT:
+      SOURCE:
+        BROKERS: kafkahost
+        TOPIC: sensor
+      VALUE:
+        COLUMNS:
+          - NAME: data
+            TYPE: json
+        FORMAT: json
+   OUTPUT:
+      TABLE: vehicles_sensor_data
+      MAPPING:
+          - NAME: device
+            EXPRESSION: data->>'device'
+          - NAME: humidity
+            EXPRESSION: (data->>'humidity')::float
+          - NAME: temperature
+            EXPRESSION: 1.0/((data->>'temperature')::int - 9) 
+          - NAME: time
+            EXPRESSION: (data->>'time')::timestamp
+   COMMIT:
+      MINIMAL_INTERVAL: 2000
+      SAVE_FAILING_BATCH: true
+      RECOVER_FAILING_BATCH: true
